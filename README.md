@@ -15,7 +15,10 @@ The goals of this project are:
 To accomplish that, I read the article from Vivek Yadav on Medium:
 [Robust lane finding using advanced computer vision techniques: Mid project update](https://medium.com/@vivek.yadav/robust-lane-finding-using-advanced-computer-vision-techniques-mid-project-update-540387e95ed3#.n4h6jf4ka)
 
-I used Vivek's tips and most of the code explained in the Advanced Lane Finding lesson to build a model that works on the project video.
+I used Vivek's tips and most of the code explained in the Advanced Lane Finding lesson to build a model that works on the project video. Here is the result
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7EziU8Gxmaw?ecver=1" frameborder="0" allowfullscreen></iframe>
 
 
 Step-by-Step Approach
