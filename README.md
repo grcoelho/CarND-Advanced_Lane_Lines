@@ -41,6 +41,7 @@ And generated the calibration parameters
 ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1],None,None)
 ```
 Here is an example of chessboard before and after the calibration.
+
 ![enter image description here](https://lh3.googleusercontent.com/G0wTrwgYI1v5MbUc9O_n6hEbr7TV4xdisz8eE2kNF80UBaD8HorDJXFlMgscC-ydpgqOidplIw=s0 "camera_calib.png")
 
 #### <i class="icon-file"></i> Image Processing
@@ -74,10 +75,14 @@ The source points (src) were a bit more difficult to determine. I decided that I
     p3 = [int(img_x*sides_up),img_y-int(img_y*horizon)] 
     p4 = [img_x - int(img_x*sides_up),img_y-int(img_y*horizon)] 
 ```
+
 The result is the four points on the following picture:
 ![enter image description here](https://lh3.googleusercontent.com/t69hNLshgA23M0OXDSwEKU8pW72I_z_whKharZ7nHMNEPallRHLLOF6bYxhaekkongbXhOnIyg=s0 "points.png")
+
 After the transformation, the image appears like the following one:
+
 ![enter image description here](https://lh3.googleusercontent.com/wLXTZ_dPgwfeqtHDS7rM55c8CpSZUghGbvuGLH0OIvB0S0UfgOeAP7NsFoHT9sS3DPpyunTUtA=s0 "birdseye.png")
+
 With this image, I applied Gaussian Blurring (to remove noise) and then Masked the Yellow and White lines. 
 ```
     #Apply Gaussian blur to the bird eye view image
@@ -105,11 +110,15 @@ low_white  = np.array([ 20,   0,   180])
 high_white = np.array([ 255,  80, 255])
 ```
 The results are as follows:
+
 ![enter image description here](https://lh3.googleusercontent.com/oaA1XYhsGRcAHtyst1x80dWToiXkyMsNuu-59AqC0VnxAkmtVRUB8TiFMfRiflRSaTlNIjjG-Q=s0 "mask.png")
+
 I also used Sobel transform to get more information from the original image. I used the 3 functions explained in class for ABS, MAG and DIR to see wich one gives me the best result. I ended up deciding to keep only the ABS because of its lower noise level.
+
 ![enter image description here](https://lh3.googleusercontent.com/FY9nhEohgF3LBtBzlItWkvFzt8Mfxv9Gt8PYhWlnVzM4hXXoq7FTaGeB72JnUC7jNDutAFMfXw=s0 "sobel.png")
 
 I merged sobel ABS with the Maks obtained from previous processing, and used them to further fit the polygon curves.
+
 ![enter image description here](https://lh3.googleusercontent.com/MacIYe7n2Fnb33CQ2Pxhi2DGbExCMpsFoqFUuXczuWDsgp_OEQN3e-gmv4AW0MHXLN2M6aKAuA=s0 "sobel_mask.png")
 
 This image was sent to *polynom_fitting*, that is the same polyfit function explained in the class. 
@@ -257,7 +266,9 @@ def polynom_fitting(binary_warped):
 ```
 The result is a polygon fitted between the two curves (plotted using the info from the masked+sobel image).
 Here are two images, one from the curve yet in the birds-eye view and the other one is from the polygon already transformed to the original perspective.
+
 ![enter image description here](https://lh3.googleusercontent.com/L2lcKFj7RxhWlO3IeJfFy1cmAF2p2u2aUMfyQstBO1u7OVIjQkh9ds1aAny3sqfjpWv5N9f_iQ=s0 "curves.png")
+
 ![enter image description here](https://lh3.googleusercontent.com/l6jcxQ8vsn2ixnOb8g-OSOF4g7JBTNZMWH4qlVLowjq_e1f1tBljWdaZNH4RIEtzsNx2HkHgvA=s0 "polygon.png")
 
 Then I just merged that with the original image.
@@ -293,6 +304,7 @@ def find_center(image):
                         return out_center_cm
 ```                    
 These data are ploted to the top left corner of the original image.
+
 ![enter image description here](https://lh3.googleusercontent.com/sW_2-T7lZh-6KcuJhfEwJqYy1HzBIHgjB4pO3X06pwg6LHxTswuupjnwSCvkJAyBeGk3sTXVFA=s0 "merged_final.png")
 
 
